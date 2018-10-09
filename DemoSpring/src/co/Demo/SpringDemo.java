@@ -13,7 +13,7 @@ public class SpringDemo
 		emp.setId(100);
 		emp.setAddress("Avenue Lacombe");
 		emp.setName("Achille");
-		System.out.print("Employee details: " + emp);
+		System.out.print("Employee details: " + emp+ "\n");
 		
 		// Spring way
 		BeanDefinitionRegistry beanDefinitionRegistry = new DefaultListableBeanFactory();
@@ -23,8 +23,8 @@ public class SpringDemo
 		Employee emp1 = (Employee)((DefaultListableBeanFactory) beanDefinitionRegistry).getBean("employee1");
 		Employee emp2 = (Employee)((DefaultListableBeanFactory) beanDefinitionRegistry).getBean("employee2");
 		
-		System.out.print("Employee details: " + emp1);
-		System.out.print("Employee details: " + emp2);
+		System.out.print("Employee details: " + emp1 + "\n");
+		System.out.print("Employee details: " + emp2 + "\n");
 	}
 	
 }
