@@ -46,9 +46,9 @@ public class LoginView {
 	public void simpleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		HttpSession session = request.getSession();
-		String name = request.getParameter("name");
-		String password = request.getParameter("pass");
-//		System.out.println("Username: " + name + "password : " + password );
+		String name = request.getParameter("username");
+		String password = request.getParameter("password");
+		System.out.println("Username: " + name + "password : " + password );
 		session.setAttribute("username", name);
 		if(name.equals("achille") && password.equals("123")) {
 			response.sendRedirect("homepage");

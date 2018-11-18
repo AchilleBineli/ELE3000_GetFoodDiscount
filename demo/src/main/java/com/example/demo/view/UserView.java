@@ -1,9 +1,14 @@
 package com.example.demo.view;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.model.User;
 import com.example.demo.service.UserService;
@@ -23,16 +28,29 @@ public class UserView {
 		return "home";
 	}
 	
-	@RequestMapping("/resgiter")
-	public String addUser(@RequestParam String username, 
-			@RequestParam String firstname,
-			@RequestParam String lastname,
-			@RequestParam String password,
-			@RequestParam String email) {
+	@RequestMapping("/register")
+	public void addUser(HttpServletRequest request, HttpServletResponse response ) throws IOException {
+		HttpSession session = request.getSession();
+		String username = request.getParameter("username");
+		String firstname = request.getParameter("firstname");
+		String lastname = request.getParameter("lastname");
+		String password = request.getParameter("password");
+		String email = request.getParameter("email");
 		
-		System.out.println(username + firstname+ lastname+ password+ email);
+		
+		System.out.println("username is : " + username + 
+							"firstname is : " +  firstname + 
+							"lastname is : " + lastname + 
+							"password is :"  + password +
+							"email is : " + email);
+		session.setAttribute("username", username);
+		
+		
 		User user = new User(username, firstname, lastname, password, email);
+		user.toString();
 		user_sv.addUser(user);
-		return "home";
+		response.sendRedirect("homepage");
+	
+//		return "homepage";
 	}
 }

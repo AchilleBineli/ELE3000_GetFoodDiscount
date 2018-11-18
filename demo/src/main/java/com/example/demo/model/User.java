@@ -9,7 +9,7 @@ import javax.persistence.Table;
  * Description: A user is a client of the application
  */
 @Entity
-@Table(name="mytable")
+@Table(name="users")
 public class User {
 
 	@Id
