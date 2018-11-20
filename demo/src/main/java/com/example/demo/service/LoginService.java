@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 public class LoginService {
 	
 
-
+//	private UserRepo user_repo;
+	private UserService user_service = UserService.getInstance();
+	
 	public String login(String username, String password) {
 		
 		System.out.println("yes" + username + password);
@@ -18,5 +20,16 @@ public class LoginService {
 			return "login did not work";
 		}
 	}
+	
+	public String login1(String username, String password) {
+		if(user_service.userExists(username, password)) {
+			return "homepage";
+		}
+		else {
+			return "home";
+		}
+	}
+	
+
 
 }

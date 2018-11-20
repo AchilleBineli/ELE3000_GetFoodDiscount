@@ -6,43 +6,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.example.demo.model.Employee;
+import com.example.demo.model.User;
+import com.example.demo.service.LoginService;
 
 @Controller
 public class LoginView {
 	
-	@RequestMapping("/home")
-	public String home(){
-		return "home";
-	}
 	
-	@RequestMapping("homepage")
-	public String homepage() {
-		return "homepage";
-	}
+	@Autowired
+	private LoginService log_service;
 	
-	@RequestMapping("/login")
-	public ModelAndView simpleLogin(@RequestParam("name") String name) {
-		ModelAndView mav = new ModelAndView("homepage");
-		mav.addObject("username", name);
-		mav.setViewName("homepage");
-		return mav;
-	}
-	
-	@RequestMapping("/login2")
-	public ModelAndView simpleLogin(Employee emp) {
-		ModelAndView mav = new ModelAndView("homepage");
-		mav.addObject("username", emp.getName());
-		return mav;
-	}
+	public Iterable<User> users;
+
 	
 	@RequestMapping("/login3")
-	
 	public void simpleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		
 		HttpSession session = request.getSession();
@@ -56,6 +37,14 @@ public class LoginView {
 		else {
 			response.sendRedirect("home");
 		}
-		
+	}
+	
+	@RequestMapping("/login1")
+	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException{
+		HttpSession session = request.getSession();
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		session.setAttribute("username", username);
+		log_service.login(username, password);
 	}
 }

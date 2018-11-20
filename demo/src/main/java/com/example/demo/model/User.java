@@ -13,13 +13,16 @@ import javax.persistence.Table;
 public class User {
 
 	@Id
-	private int id;
 	private String username;
 	private String firstName;
 	private String lastName;
 	private String password;
 	private String email;
 	
+	public User() {
+	}
+
+
 	/*
 	 * Method name:	Constructor
 	 * Description: Create a user with all the parameters for each
@@ -32,21 +35,6 @@ public class User {
 		this.email = email;
 	}
 	
-	/*
-	 * Method name:	getId
-	 * Description:	Retrieve the id of the user
-	 */
-	public int getId() {
-		return id;
-	}
-	
-	/*
-	 * Method name:	setId
-	 * Description:	modify the id of the user
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
 	
 	/*
 	 * Method name:	getUsername
@@ -129,17 +117,11 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	
-	/*
-	 * Method name:	toString
-	 * Description:	print the User with all its parameters
-	 */
+
+
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", firstName=" + firstName + ", lastName=" + lastName
-				+ ", password=" + password + ", email=" + email + "]";
+		return "User [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
+				+ password + ", email=" + email + "]";
 	}
-
-	
 }

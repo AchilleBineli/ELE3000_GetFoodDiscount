@@ -9,31 +9,17 @@
 </head>
 <body>
 
-<!-- 	<form action="login3">
-		username:<input type="text" name="name"> 
-		password : <input type="password" name="pass"> 
-		e-mail : <input type="text" name="email"> 
-		<input type="submit" value="Log in">
-	</form>
- -->
-
 	<form action="login3">
 		username : <input type="text" name="username"><br> 
 		password :<input type="text" name="password"><br>
 		<input type="submit" value="Log in">
 	</form>
-	
 	<br>
 	<br>
-	<form action="register">
-		username : <input type="text" name="username"><br> 
-		firstname: <input type="text" name="firstname"><br>
-		lastname: <input type="text" name="lastname"><br>
-		password :<input type="text" name="password"><br> 
-		e-mail : <input type="text" name="email"><br> 
-		<input type="submit" value="Register">
+	<form action ="register_page">
+		<input type="submit"  value="Sign in here">
 	</form>
-	
+
 
 </body>
 </html>
