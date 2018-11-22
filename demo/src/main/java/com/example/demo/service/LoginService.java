@@ -1,12 +1,12 @@
 package com.example.demo.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class LoginService {
 	
-
-//	private UserRepo user_repo;
+	@Autowired
 	private UserService user_service = UserService.getInstance();
 	
 	public String login(String username, String password) {
@@ -23,13 +23,13 @@ public class LoginService {
 	
 	public String login1(String username, String password) {
 		if(user_service.userExists(username, password)) {
+			System.out.println("user exists");
 			return "homepage";
 		}
 		else {
+			System.out.println("user does not exist");
 			return "home";
 		}
 	}
-	
-
 
 }

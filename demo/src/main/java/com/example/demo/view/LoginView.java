@@ -23,9 +23,9 @@ public class LoginView {
 	public Iterable<User> users;
 
 	
-	@RequestMapping("/login3")
+	@RequestMapping("/login1")
 	public void simpleLogin(HttpServletRequest request, HttpServletResponse response) throws IOException{
-		
+		System.out.println("login1View");
 		HttpSession session = request.getSession();
 		String name = request.getParameter("username");
 		String password = request.getParameter("password");
@@ -39,12 +39,13 @@ public class LoginView {
 		}
 	}
 	
-	@RequestMapping("/login1")
-	public void login(HttpServletRequest request, HttpServletResponse response) throws IOException{
+	@RequestMapping("users/login3")
+	public String login(HttpServletRequest request, HttpServletResponse response) throws IOException{
 		HttpSession session = request.getSession();
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		session.setAttribute("username", username);
-		log_service.login(username, password);
+		String page = log_service.login1(username, password);
+		return page;
 	}
 }

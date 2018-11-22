@@ -1,9 +1,11 @@
 package com.example.demo.view;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +17,6 @@ import com.example.demo.service.UserService;
 @Controller
 @RequestMapping("/users")
 public class UserView {
-
-//	private UserRepo user_repo;
 	
 	@Autowired
 	UserService user_sv = UserService.getInstance();
@@ -46,7 +46,20 @@ public class UserView {
 	}
 	
 	@RequestMapping("/all")
-	public void viewAllUsers() {
-		user_sv.viewAll();
+	public String getAllUsers(HttpServletRequest request) {
+		HttpSession session = request.getSession();
+		List<User> users = user_sv.getAllUsers();
+		session.setAttribute("users", users);
+		return "usersView";
 	}
+	
+	@RequestMapping("/getAch")
+	public String getUserAchille(HttpServletRequest request){
+		HttpSession session = request.getSession();
+		User user = user_sv.getUserByUsername("achille");
+		session.setAttribute("user", user);
+		return "userView";
+		
+	}
+	
 }

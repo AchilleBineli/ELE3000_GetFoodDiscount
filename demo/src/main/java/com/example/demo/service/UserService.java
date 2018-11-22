@@ -1,7 +1,12 @@
 package com.example.demo.service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.User;
@@ -15,50 +20,37 @@ import com.example.demo.repository.UserRepo;
 @Transactional
 public class UserService {
 	
-//	private static volatile UserService instance = null;
-	public Iterable<User> users;
+	private static volatile UserService instance = null;
+	public ArrayList<User> users;
 	
 	/**
 	 * 
 	 */
-	private final UserRepo user_repo;
+	@Autowired
+	private UserRepo user_repo;
 	
-//	/**
-//	 * Constructor
-//	 * @param repo
-//	 * 
-//	 */
-//	private UserService(UserRepo repo) {
-//		this.user_repo = repo;
-//	}
-//	
-//	/**
-//	 * 
-//	 * @param repo
-//	 * @return instance of the singleton class UserService
-//	 */
-//	public static UserService getInstance(UserRepo repo) {
-//		if(UserService.instance == null) {
-//			synchronized(UserService.class) {
-//				if(UserService.instance == null) {
-//					UserService.instance = new UserService(repo);
-//				}
-//			}
-//		}
-//		return UserService.instance;
-//	}
-	
-	private UserService(UserRepo repo) {
-		this.user_repo = repo;
+	/**
+	 * Constructor
+	 * @param repo
+	 * 
+	 */
+	protected UserService() {
 	}
 	
-	private static class UserServiceInstanceHolder {
-		static UserRepo userRepo;
-		private static final UserService THE_UNIQUE_USER_SERVICE = new UserService(userRepo);
-	}
-	
+	/**
+	 * 
+	 * @param repo
+	 * @return instance of the singleton class UserService
+	 */
 	public static UserService getInstance() {
-		return UserServiceInstanceHolder.THE_UNIQUE_USER_SERVICE;
+		if(UserService.instance == null) {
+			synchronized(UserService.class) {
+				if(UserService.instance == null) {
+					UserService.instance = new UserService();
+				}
+			}
+		}
+		return UserService.instance;
 	}
 	
 	
@@ -70,14 +62,7 @@ public class UserService {
 		user_repo.save(user);
 	}
 
-	/**
-	 * View all users in the database 
-	 */
-	public void viewAll() {
-		this.users = user_repo.findAll();
-		
-	}
-	
+
 	/**
 	 * 
 	 * @param username
@@ -85,6 +70,7 @@ public class UserService {
 	 * @return true if user already exists or false if not
 	 */
 	public boolean userExists (String username, String password) {
+		List<User> users = getAllUsers();
 		for(User user : users) {
 			if(user.getUsername().equals(username) && user.getPassword().equals(password)) {
 				return true;
@@ -93,4 +79,34 @@ public class UserService {
 		return false;
 	}
 
+	/**
+	 * 
+	 * @param username
+	 * @return
+	 */
+	public User getUserByUsername(String username){
+		Optional<User> user = user_repo.findById(username);
+		return user.get();
+	}
+
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public List<User> getAllUsers() {
+		return user_repo.findAll();
+	}
+	
+	
+	/**
+	 * 
+	 */
+	public List<User> getUserByPassword(String password) {
+		List<User> users = user_repo.findByPassword(password);
+		return users;
+	}
+	
+	
+	
 }
